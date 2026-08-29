@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetos Perdidos | Preparatoria 8</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f2f8;
+            color: #FF428A;
+        }
+
+        /* ---------- HEADER ---------- */
+
+        header {
+            background: #fba0e3;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            border: none;
+            background: transparent;
+            color: white;
+            padding: 9px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        nav button:hover {
+            background: rgba(255,255,255,0.18);
+        }
+
+        /* ---------- SECCIONES ---------- */
+
+        main {
+            width: 86%;
+            max-width: 1150px;
+            margin: 35px auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            margin-bottom: 10px;
+            color: #FF428A;
+        }
+
+        h2 {
+            color: #FF428A;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #6f616c;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* ---------- HERO ---------- */
+
+        .hero {
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            margin-bottom: 25px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 9px;
+            padding: 12px 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #ff428ae7;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #fba0e3f3;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f4e1ee;
+            color: #FF428A;
+        }
+
+        .btn-danger {
+            background: #f2d8dc;
+            color: #8b2836;
+        }
+
+        /* ---------- ESTADÍSTICAS ---------- */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fba0e3;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #746671;
+            font-size: 0.9rem;
+        }
+
+        /* ---------- BÚSQUEDA ---------- */
+
+        .search-box {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcd0db;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: white;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid #b99bdd;
+            border-color: #fc5e9b;
+        }
+
+        /* ---------- TARJETAS ---------- */
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .item-image {
+            height: 150px;
+            background: #efe7ee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+        }
+
+        .item-content {
+            padding: 18px;
+        }
+
+        .item-content h3 {
+            margin-bottom: 10px;
+            color: #4f3046;
+        }
+
+        .item-info {
+            font-size: 0.9rem;
+            color: #6f616c;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .code {
+            font-size: 0.8rem;
+            color: #8e808b;
+        }
+
+        /* ---------- ESTADOS ---------- */
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .available {
+            background: #dcefdc;
+            color: #27652b;
+        }
+
+        .soon {
+            background: #fff0c9;
+            color: #795d00;
+        }
+
+        .claimed {
+            background: #dbe9f7;
+            color: #27547c;
+        }
+
+        .donated {
+            background: #e8e2e8;
+            color: #675c65;
+        }
+
+        /* ---------- FORMULARIOS ---------- */
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 750px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #4f414a;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* ---------- ALERTAS ---------- */
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .alert-warning {
+            background: #fff2cf;
+            color: #725600;
+        }
+
+        .alert-success {
+            background: #dff1df;
+            color: #275e2b;
+        }
+
+        .empty {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: #777;
+        }
+
+        /* ---------- MODAL ---------- */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+
+        @media (max-width: 850px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            main {
+                width: 92%;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .stats,
+            .items-grid,
+            .filters,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🔎 Objetos Perdidos</div>
+
+    <nav>
+        <button onclick="showSection('inicio')">Inicio</button>
+        <button onclick="showSection('buscar')">Buscar</button>
+        <button onclick="showSection('registrar')">Registrar</button>
+    </nav>
+</header>
+
+
+<main>
+
+    <!-- ================= INICIO ================= -->
+
+    <section id="inicio" class="section active">
+
+        <div class="hero">
+            <h1>Encuentra lo que perdiste.</h1>
+
+            <p class="subtitle">
+                Sistema propuesto para registrar, localizar y recuperar
+                objetos perdidos dentro de la preparatoria antes de que
+                sean destinados a donación.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="showSection('buscar')">
+                    🔎 Buscar un objeto
+                </button>
+
+                <button class="btn btn-secondary" onclick="showSection('registrar')">
+                    📦 Registrar objeto
+                </button>
+            </div>
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="stat-number" id="totalObjects">0</div>
+                <div class="stat-label">Objetos registrados</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="availableObjects">0</div>
+                <div class="stat-label">Disponibles</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="claimedObjects">0</div>
+                <div class="stat-label">Recuperados</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="donatedObjects">0</div>
+                <div class="stat-label">Donados</div>
+            </div>
+
+        </div>
+
+
+        <div id="donationAlert"></div>
+
+        <h2>¿Cómo funciona?</h2>
+
+        <div class="hero">
+
+            <p class="subtitle">
+                1️⃣ El personal registra el objeto encontrado.<br><br>
+
+                2️⃣ Se asigna un código único y se agregan sus características.<br><br>
+
+                3️⃣ Los alumnos pueden buscar objetos mediante filtros.<br><br>
+
+                4️⃣ Si un alumno identifica un objeto como suyo, solicita una reclamación.<br><br>
+
+                5️⃣ El personal verifica la propiedad antes de entregarlo.<br><br>
+
+                6️⃣ Si nadie lo reclama después del periodo establecido, puede ser destinado a donación.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= BUSCAR ================= -->
+
+    <section id="buscar" class="section">
+
+        <h1>🔎 Buscar objeto</h1>
+
+        <p class="subtitle">
+            Utiliza los filtros para encontrar un objeto perdido.
+        </p>
+
+        <div class="search-box">
+
+            <div class="filters">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Buscar por nombre..."
+                    oninput="filterObjects()"
+                >
+
+                <select id="categoryFilter" onchange="filterObjects()">
+                    <option value="">Categoría</option>
+                    <option value="Ropa">Ropa</option>
+                    <option value="Accesorios">Accesorios</option>
+                    <option value="Papelería">Papelería</option>
+                    <option value="Electrónica">Electrónica</option>
+                    <option value="Otros">Otros</option>
+                </select>
+
+                <select id="colorFilter" onchange="filterObjects()">
+                    <option value="">Color</option>
+                    <option value="Negro">Negro</option>
+                    <option value="Blanco">Blanco</option>
+                    <option value="Azul">Azul</option>
+                    <option value="Rojo">Rojo</option>
+                    <option value="Gris">Gris</option>
+                    <option value="Verde">Verde</option>
+                    <option value="Otro">Otro</option>
+                </select>
+
+                <select id="placeFilter" onchange="filterObjects()">
+                    <option value="">Lugar</option>
+                    <option value="Edificio 1">Edificio 1</option>
+                    <option value="Edificio 2">Edificio 2</option>
+                    <option value="Edificio 3">Edificio 3</option>
+                    <option value="Edificio 4">Edificio 4</option>
+                    <option value="Biblioteca">Biblioteca</option>
+                    <option value="Cafetería">Cafetería</option>
+                    <option value="Gimnasio">Gimnasio</option>
+                    <option value="Salón">Salón</option>
+                    <option value="Sanitarios Mujer">Sanitarios Mujer</option>
+                    <option value="Sanitarios Hombre">Sanitarios Hombre</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <div id="itemsGrid" class="items-grid"></div>
+
+    </section>
+
+
+    <!-- ================= REGISTRAR ================= -->
+
+    <section id="registrar" class="section">
+
+        <h1>📦 Registrar objeto</h1>
+
+        <p class="subtitle">
+            Formulario destinado al personal encargado de objetos perdidos.
+        </p>
+
+        <div class="form-container">
+
+            <form id="registerForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Nombre del objeto</label>
+                        <input
+                            type="text"
+                            id="objectName"
+                            placeholder="Ej. Sudadera"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <select id="objectCategory" required>
+                            <option value="">Seleccionar</option>
+                            <option value="Ropa">Ropa</option>
+                            <option value="Accesorios">Accesorios</option>
+                            <option value="Papelería">Papelería</option>
+                            <option value="Electrónica">Electrónica</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Color</label>
+                        <select id="objectColor" required>
+                            <option value="">Seleccionar</option>
+                            <option value="Negro">Negro</option>
+                            <option value="Blanco">Blanco</option>
+                            <option value="Azul">Azul</option>
+                            <option value="Rojo">Rojo</option>
+                            <option value="Gris">Gris</option>
+                            <option value="Verde">Verde</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lugar encontrado</label>
+                        <select id="objectPlace" required>
+                            <option value="">Seleccionar</option>
+                            <option value="Edificio 1">Edificio 1</option>
+                            <option value="Edificio 2">Edificio 2</option>
+                            <option value="Edificio 3">Edificio 3</option>
+                            <option value="Edificio 4">Edificio 4</option>
+                            <option value="Biblioteca">Biblioteca</option>
+                            <option value="Cafetería">Cafetería</option>
+                            <option value="Gimnasio">Gimnasio</option>
+                            <option value="Salón">Salón</option>
+                             <option value="Sanitarios Mujer">Sanitarios Mujer</option>
+                              <option value="Sanitarios Hombre">Sanitarios Hombre</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Fecha encontrada</label>
+
+                    <input
+                        type="date"
+                        id="objectDate"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Características adicionales</label>
+
+                    <textarea
+                        id="objectDescription"
+                        placeholder="Ej. Tiene un pequeño logo en la manga..."
+                        required
+                    ></textarea>
+
+                    <small>
+                        Estas características pueden utilizarse para verificar
+                        que el objeto realmente pertenece al alumno.
+                    </small>
+
+                </div>
+
+
+                <button class="btn btn-primary" type="submit">
+                    Registrar objeto
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= MODAL DE RECLAMACIÓN ================= -->
+
+<div class="modal" id="claimModal">
+
+    <div class="modal-content">
+
+        <h2>🙋 Reclamar objeto</h2>
+
+        <p id="claimText" class="subtitle"></p>
+
+        <form id="claimForm">
+
+            <div class="form-group">
+
+                <label>Nombre del alumno</label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Grupo / semestre</label>
+
+                <input
+                    type="text"
+                    id="studentGroup"
+                    placeholder="Ej. 151 / 1er semestre"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>¿Cómo puedes demostrar que es tuyo?</label>
+
+                <textarea
+                    id="proof"
+                    placeholder="Describe alguna característica que no aparece públicamente..."
+                    required
+                ></textarea>
+
+            </div>
+
+            <div class="modal-buttons">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="closeModal()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Enviar solicitud
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* ==========================================================
+       DATOS INICIALES
+    ========================================================== */
+
+    const defaultObjects = [
+
+        {
+            id: "A-001",
+            name: "Sudadera",
+            category: "Ropa",
+            color: "Negro",
+            place: "Edificio 1",
+            date: "2026-08-21",
+            description: "Tiene un pequeño logo en la manga.",
+            status: "Disponible",
+            icon: "🧥"
+        },
+
+        {
+            id: "A-002",
+            name: "Mochila",
+            category: "Accesorios",
+            color: "Azul",
+            place: "Biblioteca",
+            date: "2026-08-20",
+            description: "Mochila con varios compartimentos.",
+            status: "Disponible",
+            icon: "🎒"
+            },
+
+            {
+            id: "A-003",
+            name: "Calculadora",
+            category: "Electrónica",
+            color: "Negro",
+            place: "Salón",
+            date: "2026-08-17",
+            description: "Calculadora científica con funda.",
+            status: "Próximo a donación",
+            icon: "🧮"
+        },
+
+        {
+            id: "A-004",
+            name: "Gorra",
+            category: "Accesorios",
+            color: "Rojo",
+            place: "Gimnasio",
+            date: "2026-08-22",
+            description: "Tiene una pequeña marca en la parte interior.",
+            status: "Disponible",
+            icon: "🧢"
+        },
+
+        {
+            id: "A-005",
+            name: "Playera",
+            category: "Ropa",
+            color: "Blanco",
+            place: "Cafetería",
+            date: "2026-08-12",
+            description: "Playera blanca de manga corta.",
+            status: "Próximo a donación",
+            icon: "👕"
+        },
+
+        {
+            id: "A-006",
+            name: "Libreta",
+            category: "Papelería",
+            color: "Verde",
+            place: "Edificio 4",
+            date: "2026-08-18",
+            description: "Libreta con espiral metálico.",
+            status: "Reclamado",
+            icon: "📓"
+        }
+
+    ];
+
+
+    let objects = JSON.parse(localStorage.getItem("lostObjects"));
+
+    if (!objects) {
+        objects = defaultObjects;
+        saveObjects();
+    }
+
+
+    /*
+    ==========================================================
+       NAVEGACIÓN
+    ========================================================== */
+
+    function showSection(sectionId) {
+
+        document.querySelectorAll(".section").forEach(section => {
+            section.classList.remove("active");
+        });
+
+        document.getElementById(sectionId).classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        if (sectionId === "buscar") {
+            filterObjects();
+        }
+
+    }
+
+    /* ==========================================================
+       GUARDAR DATOS
+    ========================================================== */
+
+    function saveObjects() {
+        localStorage.setItem("lostObjects", JSON.stringify(objects));
+    }
+
+    /* ==========================================================
+       ESTADÍSTICAS
+    ========================================================== */
+
+    function updateStats() {
+
+        const total = objects.length;
+
+        const available = objects.filter(
+            obj => obj.status === "Disponible" ||
+                   obj.status === "Próximo a donación"
+        ).length;
+
+        const claimed = objects.filter(
+            obj => obj.status === "Reclamado"
+        ).length;
+
+        const donated = objects.filter(
+            obj => obj.status === "Donado"
+        ).length;
+
+        document.getElementById("totalObjects").textContent = total;
+        document.getElementById("availableObjects").textContent = available;
+        document.getElementById("claimedObjects").textContent = claimed;
+        document.getElementById("donatedObjects").textContent = donated;
+
+
+        const soon = objects.filter(
+            obj => obj.status === "Próximo a donación"
+        ).length;
+
+
+        const alertBox = document.getElementById("donationAlert");
+
+        if (soon > 0) {
+
+            alertBox.innerHTML = `
+                <div class="alert alert-warning">
+                    ⚠️ Hay <strong>${soon}</strong> objeto(s)
+                    próximos a ser destinados a donación.
+                    Todavía pueden ser reclamados por sus propietarios.
+                </div>
+            `;
+
+        } else {
+
+            alertBox.innerHTML = "";
+
+        }
+
+    }
+
+    /* ==========================================================
+       MOSTRAR OBJETOS
+    ========================================================== */
+
+    function displayObjects(list) {
+
+        const grid = document.getElementById("itemsGrid");
+
+        grid.innerHTML = "";
+
+
+        if (list.length === 0) {
+
+            grid.innerHTML = `
+                <div class="empty">
+                    😔 No encontramos objetos con esos criterios.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        list.forEach(obj => {
+
+            let statusClass = "available";
+
+            if (obj.status === "Próximo a donación") {
+                statusClass = "soon";
+            }
+
+            if (obj.status === "Reclamado") {
+                statusClass = "claimed";
+            }
+
+            if (obj.status === "Donado") {
+                statusClass = "donated";
+            }
+
+
+            const button =
+
+                obj.status === "Disponible" ||
+                obj.status === "Próximo a donación"
+
+                ?
+
+                `
+                <button
+                    class="btn btn-primary"
+                    onclick="openClaimModal('${obj.id}')"
+                >
+                    ¿Es mío?
+                </button>
+                `
+
+                :
+
+                "";
+
+
+            grid.innerHTML += `
+
+                <div class="item-card">
+
+                    <div class="item-image">
+                        ${obj.icon || "📦"}
+                    </div>
+
+                    <div class="item-content">
+
+                        <span class="status ${statusClass}">
+                            ${obj.status}
+                        </span>
+
+                        <h3>${obj.name}</h3>
+
+                        <div class="item-info">
+
+                            <strong>Categoría:</strong>
+                            ${obj.category}<br>
+
+                            <strong>Color:</strong>
+                            ${obj.color}<br>
+
+                            <strong>Encontrado en:</strong>
+                            ${obj.place}<br>
+
+                            <strong>Fecha:</strong>
+                            ${formatDate(obj.date)}
+
+                        </div>
+
+                        <div class="code">
+                            Código: ${obj.id}
+                        </div>
+
+                        <br>
+
+                        ${button}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+    /* ==========================================================
+       FILTROS
+    ========================================================== */
+
+    function filterObjects() {
+
+        const search =
+            document.getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+        const category =
+            document.getElementById("categoryFilter")
+            .value;
+
+        const color =
+            document.getElementById("colorFilter")
+            .value;
+
+        const place =
+            document.getElementById("placeFilter")
+            .value;
+
+
+        const filtered = objects.filter(obj => {
+
+            const matchesSearch =
+                obj.name
+                .toLowerCase()
+                .includes(search);
+
+            const matchesCategory =
+                category === "" ||
+                obj.category === category;
+
+            const matchesColor =
+                color === "" ||
+                obj.color === color;
+
+            const matchesPlace =
+                place === "" ||
+                obj.place === place;
+
+
+            return (
+                matchesSearch &&
+                matchesCategory &&
+                matchesColor &&
+                matchesPlace
+            );
+
+        });
+
+
+        displayObjects(filtered);
+
+    }
+
+
+    /* ==========================================================
+       FECHAS
+    ========================================================== */
+
+    function formatDate(date) {
+
+        const d = new Date(date + "T00:00:00");
+
+        return d.toLocaleDateString("es-MX", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        });
+
+    }
+
+
+    /* ==========================================================
+       REGISTRAR OBJETO
+    ========================================================== */
+
+    document
+        .getElementById("registerForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const newId =
+                "A-" +
+                String(objects.length + 1).padStart(3, "0");
+
+
+            const newObject = {
+
+                id: newId,
+
+                name:
+                    document.getElementById("objectName").value,
+
+                category:
+                    document.getElementById("objectCategory").value,
+
+                color:
+                    document.getElementById("objectColor").value,
+
+                place:
+                    document.getElementById("objectPlace").value,
+
+                date:
+                    document.getElementById("objectDate").value,
+
+                description:
+                    document.getElementById("objectDescription").value,
+
+                status:
+                    "Disponible",
+
+                icon:
+                    getIcon(
+                        document.getElementById("objectCategory").value
+                    )
+
+            };
+
+
+            objects.push(newObject);
+
+            saveObjects();
+
+            updateStats();
+
+            filterObjects();
+
+            this.reset();
+
+
+            alert(
+                `Objeto registrado correctamente.\n\nCódigo asignado: ${newId}`
+            );
+
+        });
+
+        /* ==========================================================
+       ICONOS
+    ========================================================== */
+
+    function getIcon(category) {
+
+        const icons = {
+
+            "Ropa": "👕",
+
+            "Accesorios": "🎒",
+
+            "Papelería": "📓",
+
+            "Electrónica": "📱",
+
+            "Otros": "📦"
+
+        };
+
+        return icons[category] || "📦";
+
+    }
+
+
+    /* ==========================================================
+       MODAL DE RECLAMACIÓN
+    ========================================================== */
+
+    let selectedObjectId = null;
+
+
+    function openClaimModal(id) {
+
+        selectedObjectId = id;
+
+        const object = objects.find(
+            obj => obj.id === id
+        );
+
+
+        document.getElementById("claimText").innerHTML = `
+
+            Estás solicitando reclamar:
+
+            <strong>
+                ${object.name}
+            </strong>
+
+            (${object.id}).
+
+            <br><br>
+
+            El personal encargado verificará la información
+            antes de entregar el objeto.
+
+        `;
+
+
+        document
+            .getElementById("claimModal")
+            .classList.add("active");
+
+    }
+
+
+    function closeModal() {
+
+        document
+            .getElementById("claimModal")
+            .classList.remove("active");
+
+        document
+            .getElementById("claimForm")
+            .reset();
+
+        selectedObjectId = null;
+
+    }
+
+
+    /* ==========================================================
+       ENVIAR RECLAMACIÓN
+    ========================================================== */
+
+    document
+        .getElementById("claimForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const object = objects.find(
+                obj => obj.id === selectedObjectId
+            );
+
+
+            if (!object) return;
+
+
+            alert(
+                `Solicitud enviada.\n\n` +
+                `El personal verificará que el objeto pertenezca ` +
+                `al alumno antes de aprobar la entrega.`
+            );
+
+
+            closeModal();
+
+        });
+
+        /* ==========================================================
+       INICIO
+    ========================================================== */
+
+    updateStats();
+
+    filterObjects();
+
+</script>
+
+</body>
+</html>
